@@ -3,6 +3,7 @@ import homepageService from '../services/homepageService';
 import chatbotService from '../services/chatbotService';
 import templateMessage from '../services/templateMessage';
 import axios from 'axios';
+import moment from 'moment';
 
 const MY_VERIFY_TOKEN = process.env.MY_VERIFY_TOKEN;
 
@@ -181,6 +182,9 @@ let handlePostback = async (sender_psid, received_postback) => {
     case 'LOOKUP_ORDER':
       await chatbotService.sendLookupOrder(sender_psid);
       break;
+    case 'RESERVE_SERVICE':
+      await chatbotService.sendReserveService(sender_psid);
+      break;
     default:
       console.log('run default switch case');
   }
@@ -203,7 +207,7 @@ let getInfoOrderPage = (req, res) => {
   let facebookAppId = process.env.FACEBOOK_APP_ID;
   return res.render('infoOrder.ejs', {
     facebookAppId: facebookAppId,
-    sender_psid: req.query.sender_psid
+    sender_psid: req.query.sender_psid,
   });
 };
 
@@ -377,6 +381,77 @@ let findInfoOrder = async (req, res) => {
   }
 };
 
+let getReservePage = (req, res) => {
+  let facebookAppId = process.env.FACEBOOK_APP_ID;
+  return res.render('reserve.ejs', {
+    facebookAppId: facebookAppId,
+    sender_psid: req.query.sender_psid,
+    serviceName: req.query.serviceName,
+    serviceId: req.query.serviceId,
+  });
+};
+
+let setReserve = async (req, res) => {
+  console.log('reserve info', req.body);
+  req.body.serviceId = Number(req.body.serviceId);
+  req.body.reserveDate = moment(req.body.reserveDate).format(
+    'yyyy-MM-DD HH:mm'
+  );
+  try {
+    await axios.post(`http://localhost:5000/api/reservations`, req.body);
+
+    // I demo response with sample text
+    // you can check database for customer order's status
+
+    await chatbotService.sendMessage(req.body.psid, {
+      attachment: {
+        type: 'template',
+        payload: {
+          template_type: 'button',
+          text: `Bạn đã đặt dịch vụ thành công!
+          \n----Thông tin đặt chỗ ------
+          \nTên khách hàng: ${req.body.customerName}
+          \nSĐT: ${req.body.phoneNumber}
+          \nNgày đặt: ${moment(req.body.reserveDate).format('HH:mm DD-MM-yyyy')}
+          \n-----------------------------
+          \nVui lòng đến trước 15 phút để chúng tôi sắp xếp thực hiện dịch vụ cho quý khách`,
+          buttons: [
+            {
+              type: 'postback',
+              title: 'Menu chính',
+              payload: 'BACK_TO_MAIN_MENU',
+            },
+          ],
+        },
+      },
+    });
+    console.log('thanh cong');
+
+    return res.status(200).json({
+      message: 'ok',
+    });
+  } catch (e) {
+    console.log(e.response?.data?.message);
+
+    await chatbotService.sendMessage(req.body.psid, {
+      attachment: {
+        type: 'template',
+        payload: {
+          template_type: 'button',
+          text: 'Đã có lỗi xảy ra khi đặt dịch vụ này',
+          buttons: [
+            {
+              type: 'postback',
+              title: 'Menu chính',
+              payload: 'BACK_TO_MAIN_MENU',
+            },
+          ],
+        },
+      },
+    });
+  }
+};
+
 module.exports = {
   getHomePage: getHomePage,
   getWebhook: getWebhook,
@@ -386,4 +461,6 @@ module.exports = {
   getInfoOrderPage: getInfoOrderPage,
   setInfoOrder: setInfoOrder,
   findInfoOrder,
+  getReservePage,
+  setReserve,
 };

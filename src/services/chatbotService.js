@@ -27,13 +27,9 @@ let sendMessageWelcomeNewUser = (sender_psid) => {
         },
       };
 
-      let response3 = {
-        text: 'Bạn hãy dùng menu ở dưới để lựa chọn thứ mình cần dùng nhé.',
-      };
-
       //send a quick reply
       let response4 = {
-        text: 'What can I do to help you today?',
+        text: 'Menu chính',
         quick_replies: [
           {
             content_type: 'text',
@@ -55,7 +51,6 @@ let sendMessageWelcomeNewUser = (sender_psid) => {
 
       await sendMessage(sender_psid, response1);
       await sendMessage(sender_psid, response2);
-      await sendMessage(sender_psid, response3);
       await sendMessage(sender_psid, response4);
       resolve('done');
     } catch (e) {
@@ -204,7 +199,7 @@ let showServices = async (sender_psid) => {
   try {
     //send a generic template message
     const { data } = await axios.get('http://localhost:5000/api/services');
-    let response = templateMessage.sendServicesTemplate(data);
+    let response = templateMessage.sendServicesTemplate(sender_psid, data);
     await sendMessage(sender_psid, response);
   } catch (e) {
     console.log(e);
@@ -215,6 +210,20 @@ let sendLookupOrder = (sender_psid) => {
   return new Promise(async (resolve, reject) => {
     try {
       let response = templateMessage.sendLookupOrderTemplate(sender_psid);
+      await sendMessage(sender_psid, response);
+      console.log('done')
+      resolve('done');
+    } catch (e) {
+      console.log(e);
+      reject(e);
+    }
+  });
+};
+
+let sendReserveService = (sender_psid) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = templateMessage.sendReserveServiceTemplate(sender_psid);
       await sendMessage(sender_psid, response);
       console.log('done')
       resolve('done');
@@ -317,6 +326,7 @@ module.exports = {
   sendMessageWelcomeNewUser: sendMessageWelcomeNewUser,
   sendCategories: sendCategories,
   sendLookupOrder: sendLookupOrder,
+  sendReserveService,
   requestTalkToAgent: requestTalkToAgent,
   showHeadphones: showHeadphones,
   showTVs: showTVs,

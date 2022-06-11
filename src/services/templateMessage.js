@@ -7,7 +7,8 @@ let sendCategoriesTemplate = () => {
         elements: [
           {
             title: 'Thú cưng',
-            image_url: 'https://vinmec-prod.s3.amazonaws.com/images/20200305_171730_105268_chu-cho-duong-tinh-.max-1800x1800.jpg',
+            image_url:
+              'https://vinmec-prod.s3.amazonaws.com/images/20200305_171730_105268_chu-cho-duong-tinh-.max-1800x1800.jpg',
             subtitle: 'Thú cưng ở PetShop rất xịn xò và được chăm sóc cẩn thận',
             default_action: {
               type: 'web_url',
@@ -29,7 +30,8 @@ let sendCategoriesTemplate = () => {
           },
           {
             title: 'Dịch vụ',
-            image_url: 'https://vnn-imgs-f.vgcloud.vn/2020/04/20/09/thu-cung-2.jpg',
+            image_url:
+              'https://vnn-imgs-f.vgcloud.vn/2020/04/20/09/thu-cung-2.jpg',
             subtitle: 'Dịch vụ được làm bởi những người tận tâm, khéo léo nhất',
             default_action: {
               type: 'web_url',
@@ -51,7 +53,8 @@ let sendCategoriesTemplate = () => {
           },
           {
             title: 'Sản phẩm khác',
-            image_url: 'https://images.foody.vn/res/g77/766271/prof/s576x330/foody-upload-api-foody-mobile-1-jpg-180803103848.jpg',
+            image_url:
+              'https://images.foody.vn/res/g77/766271/prof/s576x330/foody-upload-api-foody-mobile-1-jpg-180803103848.jpg',
             subtitle: 'Cung cấp một số loại như thức ăn, phụ kiện cho thú cưng',
             default_action: {
               type: 'web_url',
@@ -157,7 +160,7 @@ let sendProductsTemplate = (products = []) => {
   };
 };
 
-let sendServicesTemplate = (services = []) => {
+let sendServicesTemplate = (sender_psid, services = []) => {
   return {
     attachment: {
       type: 'template',
@@ -170,14 +173,17 @@ let sendServicesTemplate = (services = []) => {
             subtitle: service.price,
             default_action: {
               type: 'web_url',
-              url: `http://localhost:3000/dich-vu/${service.id}`,
+              url: `${process.env.URL_WEB_VIEW_RESERVE}?sender_psid=${sender_psid}&serviceName=${service.name}&serviceId=${service.id}`,
               webview_height_ratio: 'tall',
+              messenger_extensions: true,
             },
             buttons: [
               {
                 type: 'web_url',
-                url: `http://localhost:3000/dich-vu/${service.id}`,
+                url: `${process.env.URL_WEB_VIEW_RESERVE}?sender_psid=${sender_psid}&serviceName=${service.name}&serviceId=${service.id}`,
                 title: 'Đặt chỗ',
+                webview_height_ratio: 'tall',
+                messenger_extensions: true, //false: open the webview in new tab
               },
               {
                 type: 'postback',
@@ -203,11 +209,37 @@ let sendLookupOrderTemplate = (sender_psid) => {
       type: 'template',
       payload: {
         template_type: 'button',
-        text: "Để đảm bảo an toàn cho đơn hàng bạn hãy cung cấp một vài thông tin để tìm kiếm đơn hàng nhé.",
+        text: 'Để đảm bảo an toàn cho đơn hàng bạn hãy cung cấp một vài thông tin để tìm kiếm đơn hàng nhé.',
         buttons: [
           {
             type: 'web_url',
             url: `${process.env.URL_WEB_VIEW_ORDER}?sender_psid=${sender_psid}`,
+            title: 'Nhập thông tin',
+            webview_height_ratio: 'tall',
+            messenger_extensions: true, //false: open the webview in new tab
+          },
+          {
+            type: 'postback',
+            title: 'Menu chính',
+            payload: 'BACK_TO_MAIN_MENU',
+          },
+        ],
+      },
+    },
+  };
+};
+
+let sendReserveServiceTemplate = (sender_psid, serviceName, serviceId) => {
+  return {
+    attachment: {
+      type: 'template',
+      payload: {
+        template_type: 'button',
+        text: 'Bạn hãy nhập thông tin để chúng tôi lưu lại lịch sử đặt chỗ nhé.',
+        buttons: [
+          {
+            type: 'web_url',
+            url: `${process.env.URL_WEB_VIEW_RESERVE}?sender_psid=${sender_psid}&serviceName=${serviceName}&serviceId=${serviceId}`,
             title: 'Nhập thông tin',
             webview_height_ratio: 'tall',
             messenger_extensions: true, //false: open the webview in new tab
@@ -252,8 +284,7 @@ let setInfoOrderTemplate = () => {
       type: 'template',
       payload: {
         template_type: 'button',
-        text:
-          "Trên đây là tình trạng thông tin đơn hàng của bạn, nếu có thắc mắc nào hãy liên hệ với chúng tôi",
+        text: 'Trên đây là tình trạng thông tin đơn hàng của bạn, nếu có thắc mắc nào hãy liên hệ với chúng tôi',
         buttons: [
           {
             type: 'postback',
@@ -279,4 +310,5 @@ module.exports = {
   sendLookupOrderTemplate: sendLookupOrderTemplate,
   backToMainMenuTemplate: backToMainMenuTemplate,
   setInfoOrderTemplate: setInfoOrderTemplate,
+  sendReserveServiceTemplate,
 };

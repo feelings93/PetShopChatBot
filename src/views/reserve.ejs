@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Đặt dịch vụ</title>
+    <!-- Load Bootstrap 4, JQuery-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Load custom Javascript and CSS-->
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        let facebookAppId = "<%= facebookAppId %>"
+        let sender_psid = "<%= sender_psid %>"
+        let serviceId = "<%= serviceId %>"
+        let serviceName = "<%= serviceName %>"
+
+    </script>
+    <script type="module" src="/js/reserve.js"></script>
+
+</head>
+<body>
+<div class="container fix-height">
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center mt-3">
+                <span class="title">Đặt chỗ dịch vụ</span>
+            </div>
+            <input type="text" id="psid" hidden>
+            <div class="form-group">
+                <label for="customerName">Tên khách hàng (<span style="color: red">*</span>):</label>
+                <input type="text" id="customerName" class="form-control" placeholder="Tên khách hàng...">
+                <div class="invalid-feedback">Vui lòng nhập tên khách hàng</div>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">SĐT (<span style="color: red">*</span>):</label>
+                <input type="text" id="phoneNumber" class="form-control" placeholder="SĐT...">
+                <div class="invalid-feedback">Vui lòng nhập số điện thoại</div>
+            </div>
+            <div class="form-group">
+                <label for="reserveDate">Thời gian mong muốn (<span style="color: red">*</span>):</label>
+                <input type="datetime-local" id="reserveDate" class="form-control" placeholder="Thời gian mong muốn...">
+                <div class="invalid-feedback">Vui lòng nhập thời gian</div>
+            </div>
+            <div class="form-group">
+                <label for="service">Loại dịch vụ (<span style="color: red">*</span>):</label>
+                <input disabled type="text" id="service" class="form-control" placeholder="Loại dịch vụ">
+            </div>
+            <button class="btn btn-primary" id="btnReserve"> Xác nhận đặt </button>
+        </div>
+
+    </div>
+
+</div>
+<footer>
+    <div class="text-center">
+        <div class="">
+            <span class="mr-3">	&copy; PetShop Chatbot</span>
+            <span class="ml-3">
+                Powered by <a href="https://facebook.com/NDE.feelings" target="_blank">CuongNguyen</a>
+            </span>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

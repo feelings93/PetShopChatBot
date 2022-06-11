@@ -42,7 +42,7 @@ let handleSetupProfileAPI = () => {
                     }
                 ],
                 "whitelisted_domains": [
-                    "https://c92c-115-78-0-188.ngrok.io"
+                    "https://petshopdoan1.herokuapp.com"
                 ]
             };
             // Send the HTTP request to the Messenger Platform

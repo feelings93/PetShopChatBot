@@ -12,6 +12,8 @@ let initWebRoutes = (app)=> {
 
     router.get("/info-order", homepageController.getInfoOrderPage);
     router.post("/set-info-order", homepageController.setInfoOrder);
+    router.get("/reserve", homepageController.getReservePage);
+    router.post("/reserve", homepageController.setReserve);
     router.post("/find-info-order", homepageController.findInfoOrder);
 
     return app.use("/", router);
