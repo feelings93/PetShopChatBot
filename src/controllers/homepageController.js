@@ -246,7 +246,7 @@ let findInfoOrder = async (req, res) => {
   console.log('findorder', req.body);
   try {
     const { data } = await axios(
-      `http://127.0.0.1:5000/api/orders/${req.body.orderNumber}`
+      `${process.env.BE_HOST}/api/orders/${req.body.orderNumber}`
     );
 
     // I demo response with sample text
@@ -398,7 +398,7 @@ let setReserve = async (req, res) => {
     'yyyy-MM-DD HH:mm'
   );
   try {
-    await axios.post(`http://127.0.0.1:5000/api/reservations`, req.body);
+    await axios.post(`${process.env.BE_HOST}/api/reservations`, req.body);
 
     // I demo response with sample text
     // you can check database for customer order's status

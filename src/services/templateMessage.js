@@ -12,13 +12,13 @@ let sendCategoriesTemplate = () => {
             subtitle: 'Thú cưng ở PetShop rất xịn xò và được chăm sóc cẩn thận',
             default_action: {
               type: 'web_url',
-              url: 'http://127.0.0.1:3000/thu-cung',
+              url: 'http://localhost:3000/thu-cung',
               webview_height_ratio: 'tall',
             },
             buttons: [
               {
                 type: 'web_url',
-                url: 'http://127.0.0.1:3000/thu-cung',
+                url: 'http://localhost:3000/thu-cung',
                 title: 'Xem trên Website',
               },
               {
@@ -35,13 +35,13 @@ let sendCategoriesTemplate = () => {
             subtitle: 'Dịch vụ được làm bởi những người tận tâm, khéo léo nhất',
             default_action: {
               type: 'web_url',
-              url: 'http://127.0.0.1:3000/dich-vu',
+              url: 'http://localhost:3000/dich-vu',
               webview_height_ratio: 'tall',
             },
             buttons: [
               {
                 type: 'web_url',
-                url: 'http://127.0.0.1:3000/dich-vu',
+                url: 'http://localhost:3000/dich-vu',
                 title: 'Xem trên Website',
               },
               {
@@ -58,13 +58,13 @@ let sendCategoriesTemplate = () => {
             subtitle: 'Cung cấp một số loại như thức ăn, phụ kiện cho thú cưng',
             default_action: {
               type: 'web_url',
-              url: 'http://127.0.0.1:3000/thu-cung',
+              url: 'http://localhost:3000/thu-cung',
               webview_height_ratio: 'tall',
             },
             buttons: [
               {
                 type: 'web_url',
-                url: 'http://127.0.0.1:3000/thu-cung',
+                url: 'http://localhost:3000/thu-cung',
                 title: 'Xem trên Website',
               },
               {
@@ -93,13 +93,13 @@ let sendPetsTemplate = (pets = []) => {
             subtitle: pet.price,
             default_action: {
               type: 'web_url',
-              url: `http://127.0.0.1:3000/thu-cung/${pet.id}`,
+              url: `http://localhost:3000/thu-cung/${pet.id}`,
               webview_height_ratio: 'tall',
             },
             buttons: [
               {
                 type: 'web_url',
-                url: `http://127.0.0.1:3000/thu-cung/${pet.id}`,
+                url: `http://localhost:3000/thu-cung/${pet.id}`,
                 title: 'Đặt hàng',
               },
               {
@@ -133,13 +133,13 @@ let sendProductsTemplate = (products = []) => {
             subtitle: product.price,
             default_action: {
               type: 'web_url',
-              url: `http://127.0.0.1:3000/san-pham/${product.id}`,
+              url: `http://localhost:3000/san-pham/${product.id}`,
               webview_height_ratio: 'tall',
             },
             buttons: [
               {
                 type: 'web_url',
-                url: `http://127.0.0.1:3000/san-pham/${product.id}`,
+                url: `http://localhost:3000/san-pham/${product.id}`,
                 title: 'Đặt hàng',
               },
               {

@@ -176,7 +176,7 @@ let sendCategories = (sender_psid) => {
 let showPets = async (sender_psid) => {
   try {
     //send a generic template message
-    const { data } = await axios.get('http://127.0.0.1:5000/api/pets');
+    const { data } = await axios.get('${process.env.BE_HOST}/api/pets');
     let response = templateMessage.sendPetsTemplate(data.filter(x => x.status === 'Còn hàng'));
     await sendMessage(sender_psid, response);
   } catch (e) {
@@ -187,7 +187,7 @@ let showPets = async (sender_psid) => {
 let showProducts = async (sender_psid) => {
   try {
     //send a generic template message
-    const { data } = await axios.get('http://127.0.0.1:5000/api/products');
+    const { data } = await axios.get('${process.env.BE_HOST}/api/products');
     let response = templateMessage.sendProductsTemplate(data.filter(x => x.quantity > 0));
     await sendMessage(sender_psid, response);
   } catch (e) {
@@ -198,7 +198,7 @@ let showProducts = async (sender_psid) => {
 let showServices = async (sender_psid) => {
   try {
     //send a generic template message
-    const { data } = await axios.get('http://127.0.0.1:5000/api/services');
+    const { data } = await axios.get('${process.env.BE_HOST}/api/services');
     let response = templateMessage.sendServicesTemplate(sender_psid, data);
     await sendMessage(sender_psid, response);
   } catch (e) {
