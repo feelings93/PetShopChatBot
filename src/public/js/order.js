@@ -1,83 +1,89 @@
+const psid = document.getElementById('psid');
+let orderNumber = document.getElementById('orderNumber');
+let phoneNumber = document.getElementById('phoneNumber');
+
+const btnFindOrder = document.getElementById('btnFindOrder');
+
 //load FB SDK
-(function(d, s, id){
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/messenger.Extensions.js";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'Messenger'));
+(function (d, s, id) {
+  var js,
+    fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {
+    return;
+  }
+  js = d.createElement(s);
+  js.id = id;
+  js.src = '//connect.facebook.net/en_US/messenger.Extensions.js';
+  fjs.parentNode.insertBefore(js, fjs);
+})(document, 'script', 'Messenger');
 
-window.extAsyncInit = function() {
-    // the Messenger Extensions JS SDK is done loading
-
-    MessengerExtensions.getContext(facebookAppId,
-        function success(thread_context){
-            // success
-            //set psid to input
-            $("#psid").val(thread_context.psid);
-            handleClickButtonFindOrder();
-        },
-        function error(err){
-            // error
-            console.log(err);
-        }
-    );
+window.extAsyncInit = function () {
+  // the Messenger Extensions JS SDK is done loading
+  MessengerExtensions.getContext(
+    facebookAppId,
+    function success(thread_context) {
+      // success
+      //set psid to input
+      psid.value = thread_context.psid;
+    },
+    function error(err) {
+      // error
+      psid.value = sender_psid;
+      console.log(err);
+    }
+  );
 };
 
 //validate inputs
 function validateInputFields() {
-    const EMAIL_REG = /[a-zA-Z][a-zA-Z0-9_\.]{1,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}/g;
-    let email = $("#email");
-    let orderNumber = $("#orderNumber");
+  if (phoneNumber.value === '') {
+    phoneNumber.classList.add('is-invalid');
+    return true;
+  } else {
+    phoneNumber.classList.remove('is-invalid');
+  }
+  if (orderNumber.value === '') {
+    orderNumber.classList.add('is-invalid');
+    return true;
+  } else {
+    orderNumber.classList.remove('is-invalid');
+  }
 
-    if (!email.val().match(EMAIL_REG)) {
-        email.addClass("is-invalid");
-        return true;
-    } else {
-        email.removeClass("is-invalid");
-    }
-
-    if (orderNumber.val() === "") {
-        orderNumber.addClass("is-invalid");
-        return true;
-    } else {
-        orderNumber.removeClass("is-invalid");
-    }
-
-    return false;
+  return false;
 }
 
-function handleClickButtonFindOrder(){
-    $("#btnFindOrder").on("click", function(e) {
-        let check = validateInputFields();
-        let data = {
-            psid: $("#psid").val(),
-            customerName: $("#customerName").val(),
-            email: $("#email").val(),
-            orderNumber: $("#orderNumber").val()
-        };
+btnFindOrder.onclick = async () => {
+  let check = validateInputFields();
+  let req = {
+    psid: psid.value,
+    phoneNumber: phoneNumber.value,
+    orderNumber: orderNumber.value,
+  };
 
-        if(!check) {
-            //close webview
-            MessengerExtensions.requestCloseBrowser(function success() {
-                // webview closed
-            }, function error(err) {
-                // an error occurred
-                console.log(err);
-            });
+  if (!check) {
+    //close webview
+    MessengerExtensions.requestCloseBrowser(
+      function success() {
 
-            //send data to node.js server
-            $.ajax({
-                url: `${window.location.origin}/set-info-order`,
-                method: "POST",
-                data: data,
-                success: function(data) {
-                    console.log(data);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            })
+      },
+      function error(err) {
+        // an error occurred
+        console.log(err);
+      }
+    );
+    try {
+      const response = await fetch(
+        `${window.location.origin}/find-info-order`,
+        {
+          method: 'POST',
+          body: JSON.stringify(req),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
         }
-    });
-}
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};

@@ -6,7 +6,7 @@ const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 let handleSetupProfileAPI = () => {
     return new Promise((resolve, reject) => {
         try {
-            let url = `https://graph.facebook.com/v7.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}`;
+            let url = `https://graph.facebook.com/v14.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}`;
             let request_body = {
                 "get_started": {
                     "payload": "GET_STARTED"
@@ -18,37 +18,31 @@ let handleSetupProfileAPI = () => {
                         "call_to_actions": [
                             {
                                 "type": "postback",
-                                "title": "Talk to an agent",
+                                "title": "Nói chuyện với shop",
                                 "payload": "TALK_AGENT"
                             },
                             {
                                 "type": "postback",
-                                "title": "Restart this conversation",
+                                "title": "Khởi động lại cuộc trò chuyện",
                                 "payload": "RESTART_CONVERSATION"
                             },
                             {
-                                "type": "nested",
-                                "title": "More info",
-                                "call_to_actions": [
-                                    {
-                                        "type": "web_url",
-                                        "title": "View Facebook Fan Page",
-                                        "url": "https://www.facebook.com/haryphamdev",
-                                        "webview_height_ratio": "full"
-                                    },
-                                    {
-                                        "type": "web_url",
-                                        "title": "View Youtube channel",
-                                        "url": "https://bit.ly/subscribe-haryphamdev",
-                                        "webview_height_ratio": "full"
-                                    },
-                                ]
-                            }
+                                "type": "web_url",
+                                "title": "Xem trang cá nhân FB",
+                                "url": "https://www.facebook.com/NDE.feelings",
+                                "webview_height_ratio": "full"
+                            },
+                            {
+                                "type": "web_url",
+                                "title": "Website",
+                                "url": "http://localhost:3000",
+                                "webview_height_ratio": "full"
+                            },
                         ]
                     }
                 ],
                 "whitelisted_domains": [
-                    "https://tech-shop-haryphamdev.herokuapp.com/"
+                    "https://c92c-115-78-0-188.ngrok.io"
                 ]
             };
             // Send the HTTP request to the Messenger Platform
@@ -57,6 +51,7 @@ let handleSetupProfileAPI = () => {
                 "method": "POST",
                 "json": request_body
             }, (err, res, body) => {
+                console.log(res)
                 if (!err) {
                     resolve("Done!")
                 } else {
@@ -103,7 +98,7 @@ let sendTypingOn = (sender_psid) => {
                 "sender_action": "typing_on"
             };
 
-            let url = `https://graph.facebook.com/v6.0/me/messages?access_token=${PAGE_ACCESS_TOKEN}`;
+            let url = `https://graph.facebook.com/v2.6/me/messages?access_token=${PAGE_ACCESS_TOKEN}`;
             request({
                 "uri": url,
                 "method": "POST",
@@ -133,7 +128,7 @@ let markMessageRead = (sender_psid) => {
                 "sender_action": "mark_seen"
             };
 
-            let url = `https://graph.facebook.com/v6.0/me/messages?access_token=${PAGE_ACCESS_TOKEN}`;
+            let url = `https://graph.facebook.com/v2.6/me/messages?access_token=${PAGE_ACCESS_TOKEN}`;
             request({
                 "uri": url,
                 "method": "POST",

@@ -1,247 +1,282 @@
-let sendCategoriesTemplate = () =>{
-    return {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [
-                    {
-                        "title": "Headphones",
-                        "image_url": "https://bit.ly/imageHeadphones",
-                        "subtitle": "Bose Noise Cancelling Wireless Bluetooth Headphones",
-                        "default_action": {
-                            "type": "web_url",
-                            "url": "https://bit.ly/webHeadphones",
-                            "webview_height_ratio": "tall",
-                        },
-                        "buttons": [
-                            {
-                                "type": "web_url",
-                                "url": "https://bit.ly/webHeadphones",
-                                "title": "View on Website"
-                            },
-                            {
-                                "type": "postback",
-                                "title": "Show Headphones",
-                                "payload": "SHOW_HEADPHONES"
-                            }
-                        ]
-                    },
-                    {
-                        "title": "TV",
-                        "image_url": "https://bit.ly/imageTV",
-                        "subtitle": "Master of quality & Incredible clarity",
-                        "default_action": {
-                            "type": "web_url",
-                            "url": "https://bit.ly/webTelevision",
-                            "webview_height_ratio": "tall",
-                        },
-                        "buttons": [
-                            {
-                                "type": "web_url",
-                                "url": "https://bit.ly/webTelevision",
-                                "title": "View on Website"
-                            }, {
-                                "type": "postback",
-                                "title": "Show TVs",
-                                "payload": "SHOW_TV"
-                            }
-                        ]
-                    },
-                    {
-                        "title": "Playstation",
-                        "image_url": "https://bit.ly/imagePlaystation",
-                        "subtitle": "Incredible games & Endless entertainment",
-                        "default_action": {
-                            "type": "web_url",
-                            "url": "https://bit.ly/webPlaystation",
-                            "webview_height_ratio": "tall",
-                        },
-                        "buttons": [
-                            {
-                                "type": "web_url",
-                                "url": "https://bit.ly/webPlaystation",
-                                "title": "View on Website"
-                            }, {
-                                "type": "postback",
-                                "title": "Show Playstation",
-                                "payload": "SHOW_PLAYSTATION"
-                            }
-                        ]
-                    },
-                ]
-            }
-        }
-    };
-};
-
-let sendHeadphonesTemplate = () =>{
-    return {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [
-                    {
-                        "title": "Sony Noise Cancelling Headphones WH1000XM3",
-                        "image_url": "https://bit.ly/imageHeadphone1a",
-                        "subtitle": "$348.00",
-                        "default_action": {
-                            "type": "web_url",
-                            "url": "https://bit.ly/viewHeadphone1",
-                            "webview_height_ratio": "tall",
-                        },
-                        "buttons": [
-                            {
-                                "type": "web_url",
-                                "url": "https://bit.ly/viewHeadphone1",
-                                "title": "Order now"
-                            },
-                            {
-                                "type": "postback",
-                                "title": "Back to categories",
-                                "payload": "BACK_TO_CATEGORIES"
-                            },
-                            {
-                                "type": "postback",
-                                "title": "Main menu",
-                                "payload": "BACK_TO_MAIN_MENU"
-                            }
-                        ]
-                    },
-                    {
-                        "title": "Sony WI-1000XM2 Industry Leading Noise Canceling Wireless Behind-Neck",
-                        "image_url": "https://bit.ly/imageHeadphone1b",
-                        "subtitle": "$298.00",
-                        "default_action": {
-                            "type": "web_url",
-                            "url": "https://bit.ly/viewHeadphone2",
-                            "webview_height_ratio": "tall",
-                        },
-                        "buttons": [
-                            {
-                                "type": "web_url",
-                                "url": "https://bit.ly/viewHeadphone2",
-                                "title": "Order now"
-                            },
-                            {
-                                "type": "postback",
-                                "title": "Back to categories",
-                                "payload": "BACK_TO_CATEGORIES"
-                            },
-                            {
-                                "type": "postback",
-                                "title": "Main menu",
-                                "payload": "BACK_TO_MAIN_MENU"
-                            }
-                        ]
-                    },
-                    {
-                        "title": "Sony Wireless in-Ear Headset",
-                        "image_url": "https://bit.ly/imageHeadphone1c",
-                        "subtitle": "$38.00",
-                        "default_action": {
-                            "type": "web_url",
-                            "url": "https://bit.ly/viewHeadphone3",
-                            "webview_height_ratio": "tall",
-                        },
-                        "buttons": [
-                            {
-                                "type": "web_url",
-                                "url": "https://bit.ly/viewHeadphone3",
-                                "title": "Order now"
-                            },
-                            {
-                                "type": "postback",
-                                "title": "Back to categories",
-                                "payload": "BACK_TO_CATEGORIES"
-                            },
-                            {
-                                "type": "postback",
-                                "title": "Main menu",
-                                "payload": "BACK_TO_MAIN_MENU"
-                            }
-                        ]
-                    },
-                ]
-            }
-        }
-    };
-};
-
-let sendLookupOrderTemplate = () =>{
-    return {
-        "attachment":{
-            "type":"template",
-            "payload":{
-                "template_type":"button",
-                "text":"OK. Let's set info about your order, so I won't need to ask for them in the future.",
-                "buttons":[
-                    {
-                        "type": "web_url",
-                        "url": `${process.env.URL_WEB_VIEW_ORDER}`,
-                        "title": "Set info",
-                        "webview_height_ratio": "tall",
-                        "messenger_extensions": true //false: open the webview in new tab
-                    },
-                    {
-                        "type": "postback",
-                        "title": "Main menu",
-                        "payload": "BACK_TO_MAIN_MENU"
-                    }
-                ]
-            }
-        }
-    };
-};
-
-let backToMainMenuTemplate = ()=>{
-    return {
-        "text": "What can I do to help you today?",
-        "quick_replies": [
-            {
-                "content_type": "text",
-                "title": "Categories",
-                "payload": "CATEGORIES",
+let sendCategoriesTemplate = () => {
+  return {
+    attachment: {
+      type: 'template',
+      payload: {
+        template_type: 'generic',
+        elements: [
+          {
+            title: 'Thú cưng',
+            image_url: 'https://vinmec-prod.s3.amazonaws.com/images/20200305_171730_105268_chu-cho-duong-tinh-.max-1800x1800.jpg',
+            subtitle: 'Thú cưng ở PetShop rất xịn xò và được chăm sóc cẩn thận',
+            default_action: {
+              type: 'web_url',
+              url: 'http://localhost:3000/thu-cung',
+              webview_height_ratio: 'tall',
             },
-            {
-                "content_type": "text",
-                "title": "Lookup Order",
-                "payload": "LOOKUP_ORDER",
+            buttons: [
+              {
+                type: 'web_url',
+                url: 'http://localhost:3000/thu-cung',
+                title: 'Xem trên Website',
+              },
+              {
+                type: 'postback',
+                title: 'Xem thú cưng',
+                payload: 'SHOW_PETS',
+              },
+            ],
+          },
+          {
+            title: 'Dịch vụ',
+            image_url: 'https://vnn-imgs-f.vgcloud.vn/2020/04/20/09/thu-cung-2.jpg',
+            subtitle: 'Dịch vụ được làm bởi những người tận tâm, khéo léo nhất',
+            default_action: {
+              type: 'web_url',
+              url: 'http://localhost:3000/dich-vu',
+              webview_height_ratio: 'tall',
             },
-            {
-                "content_type": "text",
-                "title": "Talk to an agent",
-                "payload": "TALK_AGENT",
+            buttons: [
+              {
+                type: 'web_url',
+                url: 'http://localhost:3000/dich-vu',
+                title: 'Xem trên Website',
+              },
+              {
+                type: 'postback',
+                title: 'Xem dịch vụ',
+                payload: 'SHOW_SERVICES',
+              },
+            ],
+          },
+          {
+            title: 'Sản phẩm khác',
+            image_url: 'https://images.foody.vn/res/g77/766271/prof/s576x330/foody-upload-api-foody-mobile-1-jpg-180803103848.jpg',
+            subtitle: 'Cung cấp một số loại như thức ăn, phụ kiện cho thú cưng',
+            default_action: {
+              type: 'web_url',
+              url: 'http://localhost:3000/thu-cung',
+              webview_height_ratio: 'tall',
             },
-        ]
-    };
+            buttons: [
+              {
+                type: 'web_url',
+                url: 'http://localhost:3000/thu-cung',
+                title: 'Xem trên Website',
+              },
+              {
+                type: 'postback',
+                title: 'Xem sản phẩm',
+                payload: 'SHOW_PRODUCTS',
+              },
+            ],
+          },
+        ],
+      },
+    },
+  };
 };
 
-let setInfoOrderTemplate = ()=>{
-    return {
-        "attachment":{
-            "type":"template",
-            "payload":{
-                "template_type":"button",
-                "text":"We're checking your order. We will send you a message when the process is complete." +
-                    "\nThank you!",
-                "buttons":[
-                    {
-                        "type": "postback",
-                        "title": "Main menu",
-                        "payload": "BACK_TO_MAIN_MENU"
-                    }
-                ]
-            }
-        }
-    };
+let sendPetsTemplate = (pets = []) => {
+  return {
+    attachment: {
+      type: 'template',
+      payload: {
+        template_type: 'generic',
+        elements: pets.map((pet) => {
+          return {
+            title: pet.name,
+            image_url: pet.photos[0]?.url,
+            subtitle: pet.price,
+            default_action: {
+              type: 'web_url',
+              url: `http://localhost:3000/thu-cung/${pet.id}`,
+              webview_height_ratio: 'tall',
+            },
+            buttons: [
+              {
+                type: 'web_url',
+                url: `http://localhost:3000/thu-cung/${pet.id}`,
+                title: 'Đặt hàng',
+              },
+              {
+                type: 'postback',
+                title: 'Back to categories',
+                payload: 'BACK_TO_CATEGORIES',
+              },
+              {
+                type: 'postback',
+                title: 'Main menu',
+                payload: 'BACK_TO_MAIN_MENU',
+              },
+            ],
+          };
+        }),
+      },
+    },
+  };
+};
+
+let sendProductsTemplate = (products = []) => {
+  return {
+    attachment: {
+      type: 'template',
+      payload: {
+        template_type: 'generic',
+        elements: products.map((product) => {
+          return {
+            title: product.name,
+            image_url: product.photos[0]?.url,
+            subtitle: product.price,
+            default_action: {
+              type: 'web_url',
+              url: `http://localhost:3000/san-pham/${product.id}`,
+              webview_height_ratio: 'tall',
+            },
+            buttons: [
+              {
+                type: 'web_url',
+                url: `http://localhost:3000/san-pham/${product.id}`,
+                title: 'Đặt hàng',
+              },
+              {
+                type: 'postback',
+                title: 'Quay lại thể loại',
+                payload: 'BACK_TO_CATEGORIES',
+              },
+              {
+                type: 'postback',
+                title: 'Menu chính',
+                payload: 'BACK_TO_MAIN_MENU',
+              },
+            ],
+          };
+        }),
+      },
+    },
+  };
+};
+
+let sendServicesTemplate = (services = []) => {
+  return {
+    attachment: {
+      type: 'template',
+      payload: {
+        template_type: 'generic',
+        elements: services.map((service) => {
+          return {
+            title: service.name,
+            image_url: service.photos[0]?.url,
+            subtitle: service.price,
+            default_action: {
+              type: 'web_url',
+              url: `http://localhost:3000/dich-vu/${service.id}`,
+              webview_height_ratio: 'tall',
+            },
+            buttons: [
+              {
+                type: 'web_url',
+                url: `http://localhost:3000/dich-vu/${service.id}`,
+                title: 'Đặt chỗ',
+              },
+              {
+                type: 'postback',
+                title: 'Quay lại thể loại',
+                payload: 'BACK_TO_CATEGORIES',
+              },
+              {
+                type: 'postback',
+                title: 'Menu chính',
+                payload: 'BACK_TO_MAIN_MENU',
+              },
+            ],
+          };
+        }),
+      },
+    },
+  };
+};
+
+let sendLookupOrderTemplate = (sender_psid) => {
+  return {
+    attachment: {
+      type: 'template',
+      payload: {
+        template_type: 'button',
+        text: "Để đảm bảo an toàn cho đơn hàng bạn hãy cung cấp một vài thông tin để tìm kiếm đơn hàng nhé.",
+        buttons: [
+          {
+            type: 'web_url',
+            url: `${process.env.URL_WEB_VIEW_ORDER}?sender_psid=${sender_psid}`,
+            title: 'Nhập thông tin',
+            webview_height_ratio: 'tall',
+            messenger_extensions: true, //false: open the webview in new tab
+          },
+          {
+            type: 'postback',
+            title: 'Menu chính',
+            payload: 'BACK_TO_MAIN_MENU',
+          },
+        ],
+      },
+    },
+  };
+};
+
+let backToMainMenuTemplate = () => {
+  return {
+    text: 'Chúng tôi có thể giúp bạn gì nhỉ?',
+    quick_replies: [
+      {
+        content_type: 'text',
+        title: 'Thể loại',
+        payload: 'CATEGORIES',
+      },
+      {
+        content_type: 'text',
+        title: 'Tìm kiếm đơn hàng',
+        payload: 'LOOKUP_ORDER',
+      },
+      {
+        content_type: 'text',
+        title: 'Nói chuyện với nhân viên',
+        payload: 'TALK_AGENT',
+      },
+    ],
+  };
+};
+
+let setInfoOrderTemplate = () => {
+  return {
+    attachment: {
+      type: 'template',
+      payload: {
+        template_type: 'button',
+        text:
+          "Trên đây là tình trạng thông tin đơn hàng của bạn, nếu có thắc mắc nào hãy liên hệ với chúng tôi",
+        buttons: [
+          {
+            type: 'postback',
+            title: 'Tìm kiếm đơn hàng khác',
+            payload: 'LOOKUP_ORDER',
+          },
+          {
+            type: 'postback',
+            title: 'Menu chính',
+            payload: 'BACK_TO_MAIN_MENU',
+          },
+        ],
+      },
+    },
+  };
 };
 
 module.exports = {
-    sendCategoriesTemplate: sendCategoriesTemplate,
-    sendHeadphonesTemplate: sendHeadphonesTemplate,
-    sendLookupOrderTemplate: sendLookupOrderTemplate,
-    backToMainMenuTemplate: backToMainMenuTemplate,
-    setInfoOrderTemplate: setInfoOrderTemplate
+  sendCategoriesTemplate: sendCategoriesTemplate,
+  sendPetsTemplate: sendPetsTemplate,
+  sendProductsTemplate: sendProductsTemplate,
+  sendServicesTemplate: sendServicesTemplate,
+  sendLookupOrderTemplate: sendLookupOrderTemplate,
+  backToMainMenuTemplate: backToMainMenuTemplate,
+  setInfoOrderTemplate: setInfoOrderTemplate,
 };
